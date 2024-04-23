@@ -1,17 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* globals.css */
-@keyframes roll {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-
-.animate-roll {
-  animation: roll 5s infinite linear;
-}
