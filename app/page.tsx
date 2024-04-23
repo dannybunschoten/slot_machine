@@ -54,7 +54,7 @@ export default function Home() {
         <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2}/>
         <RollBar values= {items} isRolling={isRolling3} oldOffSet={prevOffSet3} newOffSet={offSet3}/>
       </div>
-      <button onClick={handleClick} className="font-serif bg-yellow-500 font-bold rounded text-2xl lg:text-8xl self-center m-4 lg:m-16 border-solid border-8 border-yellow-700 px-16 lg:px-32 py-4">
+      <button onClick={handleClick} className="font-serif bg-yellow-500 font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 border-solid border-8 border-yellow-700 px-16 lg:px-32 py-4">
         Roll
       </button>
     </div>
