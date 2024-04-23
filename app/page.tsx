@@ -4,7 +4,7 @@ import RollBar from "@/components/RollBar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [modulo, setModulo] = useState(typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches ? 42 : 17.5 : 17.5);
+  const [modulo, setModulo] = useState(typeof window !== "undefined" ? window.matchMedia("(min-width: 1024px)").matches ? 42 : 17.5 : 17.5);
   
   const items = ["🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨"]
 
@@ -47,14 +47,14 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-center bg-slate-600">
+    <div className="h-screen flex flex-col justify-center bg-dark-blue-black">
       <div className={`text-2xl lg:text-8xl self-center m-12 ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
-      <div className="flex flex-row justify-center self-center bg-amber-400 p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
+      <div className="flex flex-row justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
         <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1}/>
         <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2}/>
         <RollBar values= {items} isRolling={isRolling3} oldOffSet={prevOffSet3} newOffSet={offSet3}/>
       </div>
-      <button onClick={handleClick} className="font-serif bg-yellow-500 font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 border-solid border-8 border-yellow-700 px-16 lg:px-32 py-4">
+      <button onClick={handleClick} className="font-serif bg-gold-trans font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4">
         Roll
       </button>
     </div>

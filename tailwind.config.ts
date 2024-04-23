@@ -22,6 +22,12 @@ const config: Config = {
       animation: {
         roll: 'marquee 5s ease-in-out forwards',
         flash: 'flashing 1s alternate infinite'
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
+        'dark-blue-black': 'linear-gradient(138deg, #364156 29%, #000000 100%)',
+        'gold-trans': 'linear-gradient(138deg, #eeb500 29%, #4a3b00 100%)',
       }
     }
   },
