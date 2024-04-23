@@ -4,13 +4,8 @@ import RollBar from "@/components/RollBar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [modulo, setModulo] = useState(42);
-
-  useEffect(() => {
-    const match = window.matchMedia("(min-width: 768px)").matches;
-    setModulo(match ? 42 : 14);
-  }, []);
-
+  const [modulo, setModulo] = useState(typeof window !== "undefined" ? window.matchMedia("(min-width: 768px)").matches ? 42 : 17.5 : 17.5);
+  
   const items = ["🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨"]
 
   const [isRolling1, setIsRolling1] = useState(false);
@@ -19,11 +14,11 @@ export default function Home() {
   
   const [offSet1, setOffSet1] = useState(0);
   const [offSet2, setOffSet2] = useState(0);
-  const [offSet3, setOffSet3] = useState(modulo);
-
-  const [prevOffSet1, setPrevOffSet1] = useState(0);
-  const [prevOffSet2, setPrevOffSet2] = useState(0);
-  const [prevOffSet3, setPrevOffSet3] = useState(0);
+  const [offSet3, setOffSet3] = useState(0);
+  
+  const [prevOffSet1, setPrevOffSet1] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
+  const [prevOffSet2, setPrevOffSet2] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
+  const [prevOffSet3, setPrevOffSet3] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
 
   function handleClick() {
     const getOffset = () => 2 * modulo + Math.floor(Math.random() * 7) * (modulo / 7);
@@ -53,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col justify-center bg-slate-600">
-      <div className={`text-2xl lg:text-8xl self-center m-12 ${offSet1 === offSet2 && offSet2 === offSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
+      <div className={`text-2xl lg:text-8xl self-center m-12 ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
       <div className="flex flex-row justify-center self-center bg-amber-400 p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
         <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1}/>
         <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2}/>
