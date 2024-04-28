@@ -1,6 +1,6 @@
 'use client'
 
-import RollBar from "@/components/RollBar";
+import RollBar from "./components/RollBar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -37,22 +37,27 @@ export default function Home() {
 
     const timer = setTimeout(() => {
       setIsRolling1(false);
-      setIsRolling2(false);
-      setIsRolling3(false);
-
       setPrevOffSet1((offSet1 + offset1) % modulo + modulo);
+    }, 3100);
+
+    const timer2 = setTimeout(() => {
+      setIsRolling2(false);
       setPrevOffSet2((offSet2 + offset2) % modulo + modulo);
+    }, 4100);
+
+    const timer3 = setTimeout(() => {
+      setIsRolling3(false);
       setPrevOffSet3((offSet3 + offset3) % modulo + modulo);
-    }, 5100);
+    }, 5050);
   }
 
   return (
     <div className="h-dvh flex flex-col justify-center bg-dark-blue-black">
       <div className={`text-2xl lg:text-8xl self-center m-12 ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
       <div className="flex flex-row justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
-        <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1}/>
-        <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2}/>
-        <RollBar values= {items} isRolling={isRolling3} oldOffSet={prevOffSet3} newOffSet={offSet3}/>
+        <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1} rollTime="animate-roll3"/>
+        <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2} rollTime="animate-roll4"/>
+        <RollBar values= {items} isRolling={isRolling3} oldOffSet={prevOffSet3} newOffSet={offSet3} rollTime="animate-roll5"/>
       </div>
       <button onClick={handleClick} disabled={isRolling1||isRolling2||isRolling3} className="font-serif bg-gold-trans font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4">
         Roll
