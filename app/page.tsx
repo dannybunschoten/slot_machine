@@ -47,7 +47,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-center bg-dark-blue-black">
+    <div className="h-dvh flex flex-col justify-center bg-dark-blue-black">
       <div className={`text-2xl lg:text-8xl self-center m-12 ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
       <div className="flex flex-row justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
         <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1}/>
