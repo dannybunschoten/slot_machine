@@ -4,8 +4,6 @@ import RollBar from "./components/RollBar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [modulo, setModulo] = useState(typeof window !== "undefined" ? window.matchMedia("(min-width: 1024px)").matches ? 42 : 17.5 : 17.5);
-  
   const items = ["🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨", "🍒", "🍓", "⭐️", "🍐", "👑", "🎩", "✨"]
 
   const [isRolling1, setIsRolling1] = useState(false);
@@ -16,11 +14,16 @@ export default function Home() {
   const [offSet2, setOffSet2] = useState(0);
   const [offSet3, setOffSet3] = useState(0);
   
-  const [prevOffSet1, setPrevOffSet1] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
-  const [prevOffSet2, setPrevOffSet2] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
-  const [prevOffSet3, setPrevOffSet3] = useState(Math.floor(Math.random() * 7) * (modulo / 7));
+  const [prevOffSet1, setPrevOffSet1] = useState(0);
+  const [prevOffSet2, setPrevOffSet2] = useState(0);
+  const [prevOffSet3, setPrevOffSet3] = useState(0);
+
+  useEffect(() => {
+    handleClick();
+  }, []);
 
   function handleClick() {
+    const modulo = window.matchMedia("(min-width: 1024px)").matches ? 42 : 17.5;
     const getOffset = () => 2 * modulo + Math.floor(Math.random() * 7) * (modulo / 7);
 
     const offset1 = getOffset();
@@ -53,7 +56,7 @@ export default function Home() {
 
   return (
     <div className="h-dvh flex flex-col justify-center bg-dark-blue-black">
-      <div className={`text-2xl lg:text-8xl self-center m-12 ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
+      <div className={`text-4xl lg:text-8xl font-bold  text-yellow-500 self-center m-12 bold ${prevOffSet1 === prevOffSet2 && prevOffSet2 === prevOffSet3 ? "animate-flash" : "opacity-0"}`}>JACKPOT</div>
       <div className="flex flex-row justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
         <RollBar values= {items} isRolling={isRolling1} oldOffSet={prevOffSet1} newOffSet={offSet1} rollTime="animate-roll3"/>
         <RollBar values= {items} isRolling={isRolling2} oldOffSet={prevOffSet2} newOffSet={offSet2} rollTime="animate-roll4"/>
