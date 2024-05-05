@@ -19,8 +19,8 @@ const config: Config = {
         },
       },
       animation: {
-        roll3: "marquee 3s ease-in-out forwards",
-        roll4: "marquee 4s ease-in-out forwards",
+        roll3: "marquee 4s ease-in-out forwards",
+        roll4: "marquee 4.5s ease-in-out forwards",
         roll5: "marquee 5s ease-in-out forwards",
         flash: "flashing 1s alternate infinite",
       },
