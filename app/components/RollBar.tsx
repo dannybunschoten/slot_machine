@@ -26,20 +26,27 @@ export default function RollBar({
   }, []);
 
   function displayAsBlinking(index: number) {
-    if (index === oldOffSet && (winningLines.row1 || winningLines.TlBr)) {
-      return true;
-    } else if (index - 1 === oldOffSet && winningLines.row2) {
-      return true;
-    } else if (
-      index - 2 === oldOffSet &&
-      (winningLines.row3 || winningLines.BlTr)
-    ) {
-      return true;
+    if (columnNumber === 1) {
+      return (
+        winningLines.col1 ||
+        (index === oldOffSet && (winningLines.row1 || winningLines.TlBr)) ||
+        (index - 1 === oldOffSet && winningLines.row2) ||
+        (index - 2 === oldOffSet && (winningLines.row3 || winningLines.BlTr))
+      );
+    } else if (columnNumber === 2) {
+      return (
+        winningLines.col2 ||
+        (index === oldOffSet && winningLines.row1) ||
+        (index - 1 === oldOffSet &&
+          (winningLines.row2 || winningLines.BlTr || winningLines.TlBr)) ||
+        (index - 2 === oldOffSet && winningLines.row3)
+      );
     } else {
       return (
-        (columnNumber === 1 && winningLines.col1) ||
-        (columnNumber === 2 && winningLines.col2) ||
-        (columnNumber === 3 && winningLines.col3)
+        winningLines.col3 ||
+        (index === oldOffSet && (winningLines.row1 || winningLines.BlTr)) ||
+        (index - 1 === oldOffSet && winningLines.row2) ||
+        (index - 2 === oldOffSet && (winningLines.row3 || winningLines.TlBr))
       );
     }
   }
