@@ -70,7 +70,7 @@ export default function Home() {
 
     setIsRolling(true);
 
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setIsRolling(false);
 
       const newOffSet1 = (off1 + offSet1) % 42;
