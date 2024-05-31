@@ -193,7 +193,7 @@ export default function Home() {
         disabled={isRolling}
         className="font-serif bg-gold-trans font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4"
       >
-        {points === 0 && !isRolling ? "Restart" : "Roll"}
+        {points === 0 && !isRolling ? "Restart" : "Rolll"}
       </button>
     </div>
   );
