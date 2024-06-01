@@ -1,4 +1,4 @@
-A fun Slot Machine app. The main branch of this application is deployed [here](slot-machine.nl). 
+A fun Slot Machine app. The main branch of this application is deployed [here](https://slot-machine.nl). 
 
 ## Getting Started
 - ensure node version 20 is installed and is used.
