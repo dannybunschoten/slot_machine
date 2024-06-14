@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <div className="h-dvh overflow-x-hidden flex flex-col justify-center bg-dark-blue-black">
       <div
-        className={`text-4xl lg:text-8xl font-bold text-yellow-500 self-center m-12 bold`}
+        className={`text-5xl lg:text-8xl font-bold text-yellow-500 self-center m-12 bold`}
       >
         Points: {points}
       </div>
