@@ -110,13 +110,13 @@ export default function Home() {
   ]);
 
   return (
-    <div className="h-dvh flex flex-col justify-center bg-dark-blue-black">
+    <div className="h-dvh overflow-x-hidden flex flex-col justify-center bg-dark-blue-black">
       <div
-        className={`text-4xl lg:text-8xl font-bold  text-yellow-500 self-center m-12 bold`}
+        className={`text-4xl lg:text-8xl font-bold text-yellow-500 self-center m-12 bold`}
       >
         Points: {points}
       </div>
-      <div className="flex flex-row gap-x-6 lg:gap-x-16 justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
+      <div className="flex flex-row gap-x-5 lg:gap-x-16 justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
         <Wheel
           items={col1}
           offset={offset1}
@@ -148,7 +148,7 @@ export default function Home() {
       <button
         onClick={handleClick}
         disabled={offset1 !== 0 || offset2 !== 0 || offset3 !== 0}
-        className="font-serif bg-gold-trans font-bold rounded-2xl text-2xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4"
+        className="font-serif bg-gold-trans font-bold rounded-2xl text-5xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4"
       >
         {points === 0 ? "Restart" : "Roll"}
       </button>
