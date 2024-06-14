@@ -3,7 +3,7 @@ import "../globals.css";
 import { Item } from "./Item";
 
 const CHARACTER_HEIGHT_LG = 128;
-const CHARACTER_HEIGHT_SM = 56;
+const CHARACTER_HEIGHT_SM = 76;
 export default function Wheel({
   items,
   offset,
@@ -25,7 +25,7 @@ export default function Wheel({
     transform: `translateY(-${pixelOffset}px)`,
   };
   return (
-    <div className="bg-slate-700 h-[180px] lg:h-[405px] overflow-y-clip rounded-lg p-2 rotate-180">
+    <div className="bg-slate-700 h-[240px] lg:h-[405px] overflow-y-clip rounded-lg p-2 rotate-180">
       <div className="flex flex-col" style={style}>
         {items.map((item, index) => (
           <Item

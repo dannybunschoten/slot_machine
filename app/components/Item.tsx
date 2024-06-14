@@ -9,7 +9,7 @@ export function Item({
 }) {
   return (
     <div
-      className={`text-center text-4xl lg:text-8xl m-2 lg:m-4 rotate-180`}
+      className={`text-center text-6xl lg:text-8xl m-2 lg:m-4 rotate-180`}
       style={{
         animation: isWinning
           ? "winning-animation 0.7s infinite alternate linear"
