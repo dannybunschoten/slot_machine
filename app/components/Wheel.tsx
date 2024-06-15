@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import "../globals.css";
 import { Item } from "./Item";
+import Position from "./Position";
 
 const CHARACTER_HEIGHT_LG = 128;
 const CHARACTER_HEIGHT_SM = 76;
 export default function Wheel({
   items,
   offset,
-  winningItems,
+  winningPositions,
+  wheelIndex,
 }: {
   items: string[];
   offset: number;
-  winningItems: [boolean, boolean, boolean];
+  winningPositions: Position[];
+  wheelIndex: number;
 }) {
   const [characterHeight, setCharacterHeight] = useState(0);
 
@@ -31,7 +34,7 @@ export default function Wheel({
           <Item
             key={index}
             item={item}
-            isWinning={index < 3 ? winningItems[index] : false}
+            isWinning={winningPositions.some((pos) => pos.wheelIndex === wheelIndex && pos.itemIndex === index)}
           />
         ))}
       </div>
