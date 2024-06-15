@@ -1,7 +1,7 @@
 import Position from "./Position";
 
 export default interface WinningLine {
-  positions: [Position, Position, Position];
+  positions: Position[];
   multiplier: number;
   currentWorth: number;
 }

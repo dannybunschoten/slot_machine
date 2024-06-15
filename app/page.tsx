@@ -14,87 +14,92 @@ const NUMBER_OF_WHEELS = 3;
 const MIN_ROL_LENGTH = 30;
 const MAX_ROL_LENGTH = 60;
 
+const initializeRollWheelItems = () =>
+  Array(NUMBER_OF_WHEELS).fill(["", "", ""]);
+const initializeRollWheelOffsets = () => Array(NUMBER_OF_WHEELS).fill(0);
+const initializeWinningLines = ():WinningLine[] => [
+  {
+    positions: [
+      { wheelIndex: 0, itemIndex: 0 },
+      { wheelIndex: 1, itemIndex: 0 },
+      { wheelIndex: 2, itemIndex: 0 },
+    ],
+    multiplier: 3,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 0, itemIndex: 1 },
+      { wheelIndex: 1, itemIndex: 1 },
+      { wheelIndex: 2, itemIndex: 1 },
+    ],
+    multiplier: 5,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 0, itemIndex: 2 },
+      { wheelIndex: 1, itemIndex: 2 },
+      { wheelIndex: 2, itemIndex: 2 },
+    ],
+    multiplier: 3,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 0, itemIndex: 0 },
+      { wheelIndex: 0, itemIndex: 1 },
+      { wheelIndex: 0, itemIndex: 2 },
+    ],
+    multiplier: 3,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 1, itemIndex: 0 },
+      { wheelIndex: 1, itemIndex: 1 },
+      { wheelIndex: 1, itemIndex: 2 },
+    ],
+    multiplier: 5,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 2, itemIndex: 0 },
+      { wheelIndex: 2, itemIndex: 1 },
+      { wheelIndex: 2, itemIndex: 2 },
+    ],
+    multiplier: 3,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 0, itemIndex: 0 },
+      { wheelIndex: 1, itemIndex: 1 },
+      { wheelIndex: 2, itemIndex: 2 },
+    ],
+    multiplier: 1,
+    currentWorth: 0,
+  },
+  {
+    positions: [
+      { wheelIndex: 2, itemIndex: 0 },
+      { wheelIndex: 1, itemIndex: 1 },
+      { wheelIndex: 0, itemIndex: 2 },
+    ],
+    multiplier: 1,
+    currentWorth: 0,
+  },
+];
+
 export default function Home() {
   const [rollWheelItems, setRollWheelItems] = useState(
-    Array(NUMBER_OF_WHEELS).fill(["", "", ""]),
+    initializeRollWheelItems,
   );
   const [rollWheelOffsets, setRollWheelOffsets] = useState(
-    Array(NUMBER_OF_WHEELS).fill(0),
+    initializeRollWheelOffsets,
   );
-  const [winningLines, setWinningLines] = useState<WinningLine[]>([
-    {
-      positions: [
-        { wheelIndex: 0, itemIndex: 0 },
-        { wheelIndex: 1, itemIndex: 0 },
-        { wheelIndex: 2, itemIndex: 0 },
-      ],
-      multiplier: 3,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 0, itemIndex: 1 },
-        { wheelIndex: 1, itemIndex: 1 },
-        { wheelIndex: 2, itemIndex: 1 },
-      ],
-      multiplier: 5,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 0, itemIndex: 2 },
-        { wheelIndex: 1, itemIndex: 2 },
-        { wheelIndex: 2, itemIndex: 2 },
-      ],
-      multiplier: 3,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 0, itemIndex: 0 },
-        { wheelIndex: 0, itemIndex: 1 },
-        { wheelIndex: 0, itemIndex: 2 },
-      ],
-      multiplier: 3,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 1, itemIndex: 0 },
-        { wheelIndex: 1, itemIndex: 1 },
-        { wheelIndex: 1, itemIndex: 2 },
-      ],
-      multiplier: 5,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 2, itemIndex: 0 },
-        { wheelIndex: 2, itemIndex: 1 },
-        { wheelIndex: 2, itemIndex: 2 },
-      ],
-      multiplier: 3,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 0, itemIndex: 0 },
-        { wheelIndex: 1, itemIndex: 1 },
-        { wheelIndex: 2, itemIndex: 2 },
-      ],
-      multiplier: 1,
-      currentWorth: 0,
-    },
-    {
-      positions: [
-        { wheelIndex: 2, itemIndex: 0 },
-        { wheelIndex: 1, itemIndex: 1 },
-        { wheelIndex: 0, itemIndex: 2 },
-      ],
-      multiplier: 1,
-      currentWorth: 0,
-    },
-  ]);
+  const [winningLines, setWinningLines] = useState(initializeWinningLines);
   const [points, setPoints] = useState(10);
 
   useEffect(() => {
@@ -183,8 +188,7 @@ export default function Home() {
         Points: {points}
       </div>
       <div className="flex flex-row gap-x-5 lg:gap-x-16 justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
-        {
-          rollWheelItems.map((rollWheel, index) => (
+        {rollWheelItems.map((rollWheel, index) => (
           <Wheel
             key={index}
             items={rollWheel}
