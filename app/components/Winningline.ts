@@ -3,7 +3,6 @@ import Position from "./Position";
 export default interface WinningLine {
   positions: Position[];
   multiplier: number;
-  currentWorth: number;
 }
 
 export function calculateWinningLineWorth(
@@ -40,14 +39,15 @@ export function calculateScore(
       return multiplier * 3;
     case "⭐️":
       return multiplier * 5;
+    case "":
+      return 0;
     default:
       console.error(`Unhandled character: ${winning_char}`);
       return 0;
   }
 }
 
-export function getWinningPositions(lines: WinningLine[]) {
-  const winningLines = lines.filter((line) => line.currentWorth);
+export function getWinningPositions(winningLines: WinningLine[]) {
   const winningPositions = winningLines.flatMap(
     (winningLine) => winningLine.positions,
   );
