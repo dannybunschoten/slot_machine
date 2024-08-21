@@ -148,7 +148,7 @@ export default function Home() {
     setPoints(points - 1);
 
     setTimeout(() => {
-      const shiftArrayByOffset = (array: string[], offset: number) => {
+      const shiftArrayByOffset = (array: Fruit[], offset: number) => {
         const newArray = [...array];
         for (let i = 0; i < offset; i++) {
           newArray.push(newArray.shift()!);
