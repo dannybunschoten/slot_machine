@@ -1,3 +1,4 @@
+import { Fruit } from "../commons/fruits";
 import Position from "./Position";
 
 export default interface WinningLine {
@@ -27,20 +28,20 @@ export function calculateWinningLineWorth(
 
 export function calculateScore(
   multiplier: number,
-  winning_char: string,
+  winning_char: Fruit,
 ): number {
   switch (winning_char) {
-    case "🍒":
-    case "🍓":
-    case "🍐":
+    case "cherries":
+    case "watermelon":
+    case "grapes":
+    case "horseshoe":
       return multiplier * 1;
-    case "👑":
-    case "🎩":
+    case "clover":
+    case "lemon":
+    case "seven":
       return multiplier * 3;
-    case "⭐️":
+    case "diamond":
       return multiplier * 5;
-    case "":
-      return 0;
     default:
       console.error(`Unhandled character: ${winning_char}`);
       return 0;

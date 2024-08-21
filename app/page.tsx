@@ -8,8 +8,16 @@ import WinningLine, {
   getWinningPositions,
 } from "./components/Winningline";
 import { ScoreBoard } from "./components/ScoreBoard";
+import { Fruit } from "./commons/fruits";
 
-const ITEMS = ["🍒", "🍓", "⭐️", "🍐", "👑", "🎩"];
+const ITEMS: Fruit[] = [
+  "cherries",
+  "clover",
+  "diamond",
+  "grapes",
+  "horseshoe",
+  "lemon",
+];
 const NUMBER_OF_ITEMS_PER_WHEEL = 90;
 const NUMBER_OF_WHEELS = 3;
 const MIN_ROL_LENGTH = 30;
@@ -94,7 +102,10 @@ export default function Home() {
   );
   const [points, setPoints] = useState(10);
   const isRolling = rollWheelOffsets.some((offset) => offset !== 0);
-  const linesWithScores = WINNINGLINES.map((line) =>( {line, score: calculateWinningLineWorth(line, rollWheelItems)}));
+  const linesWithScores = WINNINGLINES.map((line) => ({
+    line,
+    score: calculateWinningLineWorth(line, rollWheelItems),
+  }));
 
   const isWinningPosition =
     linesWithScores.some((line) => line.score !== 0) && !isRolling;
@@ -154,8 +165,10 @@ export default function Home() {
         return calculateWinningLineWorth(winningLine, shiftedRollWheels);
       });
 
-      const additionalPoints = scoreCheckedWinningLines
-        .reduce((acc, val) => acc + val, 0);
+      const additionalPoints = scoreCheckedWinningLines.reduce(
+        (acc, val) => acc + val,
+        0,
+      );
 
       setRollWheelItems(shiftedRollWheels);
       setRollWheelOffsets(allZeroOffsets);
@@ -172,7 +185,11 @@ export default function Home() {
             key={index}
             items={rollWheel}
             offset={rollWheelOffsets[index]}
-            winningPositions={getWinningPositions(linesWithScores.filter((line) => line.score !== 0).map((line) => line.line))}
+            winningPositions={getWinningPositions(
+              linesWithScores
+                .filter((line) => line.score !== 0)
+                .map((line) => line.line),
+            )}
             wheelIndex={index}
           />
         ))}
