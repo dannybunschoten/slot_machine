@@ -8,9 +8,9 @@ export default interface WinningLine {
 
 export function calculateWinningLineWorth(
   line: WinningLine,
-  rollWheels: string[][],
+  rollWheels: Fruit[][],
 ) {
-  let prevChar: string | undefined = undefined;
+  let prevChar: Fruit | undefined = undefined;
   for (const pos of line.positions) {
     const { wheelIndex, itemIndex } = pos;
     const currentChar = rollWheels[wheelIndex][itemIndex];
