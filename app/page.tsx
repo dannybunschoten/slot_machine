@@ -173,7 +173,7 @@ export default function Home() {
       setRollWheelItems(shiftedRollWheels);
       setRollWheelOffsets(allZeroOffsets);
       setPoints((p) => p + additionalPoints);
-    }, 6100);
+    }, 4000);
   };
 
   return (
