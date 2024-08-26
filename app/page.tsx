@@ -227,7 +227,7 @@ export default function Home() {
           <button
             onClick={handleClick}
             disabled={isRolling}
-            className="w-full rounded-lg border-2 border-black bg-red text-[36px] font-bold tracking-wider text-white"
+            className="w-full rounded-lg border-2 border-black bg-red text-[36px] font-bold tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
               WebkitTextStroke: "4px black",
               paintOrder: "stroke fill",
