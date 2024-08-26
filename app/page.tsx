@@ -180,7 +180,7 @@ export default function Home() {
     <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-blue p-4">
       <div className="h-[66.66%] flex-grow"></div>
       <div className="flex w-full max-w-[800px] flex-col items-center justify-center">
-        <div className="flex h-[80px] w-[400px] items-center justify-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold">
+        <div className="flex h-[80px] w-[300px] items-center justify-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold lg:w-[600px]">
           <h1
             className="text-center font-display text-[60px] tracking-wide text-white"
             style={{
@@ -194,12 +194,12 @@ export default function Home() {
             WIN
           </h1>
         </div>
-        <div className="flex w-full flex-col items-center justify-center rounded-xl border-8 border-red bg-gold p-4">
+        <div className="flex w-full flex-col items-center justify-center rounded-xl border-8 border-red bg-gold p-4 lg:p-10">
           <ScoreBoard
             totalPoints={points}
             isWinningPosition={isWinningPosition}
           />
-          <div className="flex w-full flex-row justify-between p-4 lg:p-9">
+          <div className="flex w-full flex-row justify-between py-4 lg:py-9">
             {rollWheelItems.map((rollWheel, index) => (
               <div key={index} className="flex flex-col gap-2">
                 <Wheel
