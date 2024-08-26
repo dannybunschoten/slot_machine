@@ -18,7 +18,7 @@ const ITEMS: Fruit[] = [
   "horseshoe",
   "lemon",
 ];
-const NUMBER_OF_ITEMS_PER_WHEEL = 90;
+const NUMBER_OF_ITEMS_PER_WHEEL = 180;
 const NUMBER_OF_WHEELS = 3;
 const MIN_ROL_LENGTH = 30;
 const MAX_ROL_LENGTH = 60;
@@ -137,9 +137,9 @@ export default function Home() {
       return;
     }
 
-    const randomOffsets = rollWheelOffsets.map(() => {
+    const randomOffsets = rollWheelOffsets.map((_, index) => {
       const randomOffset =
-        MIN_ROL_LENGTH +
+        MIN_ROL_LENGTH * (index * 0.5 + 1) +
         Math.floor(Math.random() * (MAX_ROL_LENGTH - MIN_ROL_LENGTH));
       return randomOffset;
     });
@@ -173,7 +173,7 @@ export default function Home() {
       setRollWheelItems(shiftedRollWheels);
       setRollWheelOffsets(allZeroOffsets);
       setPoints((p) => p + additionalPoints);
-    }, 5000);
+    }, 4100);
   };
 
   return (
