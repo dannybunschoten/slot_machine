@@ -9,6 +9,7 @@ import WinningLine, {
 } from "./components/Winningline";
 import { ScoreBoard } from "./components/ScoreBoard";
 import { Fruit } from "./commons/fruits";
+import LockButton from "./components/LockButton";
 
 const ITEMS: Fruit[] = [
   "cherries",
@@ -101,6 +102,9 @@ export default function Home() {
     initializeRollWheelOffsets,
   );
   const [points, setPoints] = useState(10);
+  const [lockedWheels, setLockedWheels] = useState(
+    Array(NUMBER_OF_WHEELS).fill(false),
+  );
   const isRolling = rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
     line,
@@ -212,15 +216,16 @@ export default function Home() {
                   )}
                   wheelIndex={index}
                 />
-                <button
-                  style={{
-                    WebkitTextStroke: "4px black",
-                    paintOrder: "stroke fill",
-                  }}
-                  className="rounded-lg border-2 border-black bg-red text-[36px] tracking-wider text-white"
-                >
-                  Lock
-                </button>
+                <LockButton
+                  pressed={lockedWheels[index]}
+                  pressHandler={() =>
+                    setLockedWheels(
+                      lockedWheels.map((lockedWheel, lockIndex) =>
+                        index === lockIndex ? !lockedWheel : lockedWheel,
+                      ),
+                    )
+                  }
+                />
               </div>
             ))}
           </div>
