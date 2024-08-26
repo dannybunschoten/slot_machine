@@ -8,6 +8,18 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    colors: {
+      gray: "#C8D8E7",
+      red: "#9C000D",
+      gold: "#FEAE2B",
+      blue: "#001935",
+      white: "#FFFFFF",
+      black: "#000000",
+    },
+    fontFamily: {
+      display: ["var(--font-futura)", "sans-serif"],
+      segment: ["var(--font-segment)", "sans-serif"],
+    },
     extend: {
       keyframes: {
         marquee: {

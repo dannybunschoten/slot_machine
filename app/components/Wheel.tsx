@@ -31,7 +31,7 @@ export default function Wheel({
     transform: `translateY(-${pixelOffset}px)`,
   };
   return (
-    <div className="bg-slate-700 h-[240px] lg:h-[405px] overflow-y-clip rounded-lg p-2 rotate-180">
+    <div className="h-[240px] rotate-180 overflow-y-clip rounded-lg border-2 border-blue bg-gray p-2 lg:h-[405px]">
       <div className="flex flex-col" style={style}>
         {items.map((item, index) => (
           <Item

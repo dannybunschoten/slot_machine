@@ -177,30 +177,67 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh overflow-x-hidden flex flex-col justify-center bg-dark-blue-black">
-      <ScoreBoard totalPoints={points} isWinningPosition={isWinningPosition} />
-      <div className="flex flex-row gap-x-5 lg:gap-x-16 justify-center self-center bg-gold-trans p-4 lg:p-9 rounded border-solid border-8 border-yellow-700">
-        {rollWheelItems.map((rollWheel, index) => (
-          <Wheel
-            key={index}
-            items={rollWheel}
-            offset={rollWheelOffsets[index]}
-            winningPositions={getWinningPositions(
-              linesWithScores
-                .filter((line) => line.score !== 0)
-                .map((line) => line.line),
-            )}
-            wheelIndex={index}
+    <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-blue p-4">
+      <div className="h-[66.66%] flex-grow"></div>
+      <div className="flex w-full max-w-[800px] flex-col items-center justify-center">
+        <div className="flex h-[80px] w-[400px] items-center justify-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold">
+          <h1
+            className="text-center font-display text-[60px] tracking-wide text-white"
+            style={{
+              WebkitTextStroke: "5px black",
+              paintOrder: "stroke fill",
+              animation: isWinningPosition
+                ? "winning-animation 0.7s infinite alternate linear"
+                : "",
+            }}
+          >
+            WIN
+          </h1>
+        </div>
+        <div className="flex w-full flex-col items-center justify-center rounded-xl border-8 border-red bg-gold p-4">
+          <ScoreBoard
+            totalPoints={points}
+            isWinningPosition={isWinningPosition}
           />
-        ))}
+          <div className="flex w-full flex-row justify-between p-4 lg:p-9">
+            {rollWheelItems.map((rollWheel, index) => (
+              <div key={index} className="flex flex-col gap-2">
+                <Wheel
+                  items={rollWheel}
+                  offset={rollWheelOffsets[index]}
+                  winningPositions={getWinningPositions(
+                    linesWithScores
+                      .filter((line) => line.score !== 0)
+                      .map((line) => line.line),
+                  )}
+                  wheelIndex={index}
+                />
+                <button
+                  style={{
+                    WebkitTextStroke: "4px black",
+                    paintOrder: "stroke fill",
+                  }}
+                  className="rounded-lg border-2 border-black bg-red text-[36px] tracking-wider text-white"
+                >
+                  Lock
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleClick}
+            disabled={isRolling}
+            className="w-full rounded-lg border-2 border-black bg-red text-[36px] font-bold tracking-wider text-white"
+            style={{
+              WebkitTextStroke: "4px black",
+              paintOrder: "stroke fill",
+            }}
+          >
+            {points === 0 && !isRolling ? "Restart" : "Roll"}
+          </button>
+        </div>
       </div>
-      <button
-        onClick={handleClick}
-        disabled={isRolling}
-        className="font-serif bg-gold-trans font-bold rounded-2xl text-5xl lg:text-8xl self-center m-4 lg:m-16 px-16 lg:px-32 py-4"
-      >
-        {points === 0 && !isRolling ? "Restart" : "Roll"}
-      </button>
+      <div className="h-[33.33%] flex-grow"></div>
     </div>
   );
 }

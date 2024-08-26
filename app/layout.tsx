@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const SegmentFont = localFont({
+  src: "../public/Seven Segment.ttf",
+  variable: "--font-segment",
+});
+const FuturaBoldFont = localFont({
+  src: "../public/Futura Bold font.ttf",
+  variable: "--font-futura",
+});
 
 export const metadata: Metadata = {
   title: "Slot machine",
-  description: "Get rich by using this slot machine",
+  description: "An exciting slot machine game",
 };
 
 export default function RootLayout({
@@ -16,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${SegmentFont.variable} ${FuturaBoldFont.variable} font-display`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

@@ -27,12 +27,16 @@ export function ScoreBoard({
 
   return (
     <div
-      className={`text-5xl lg:text-8xl font-bold text-yellow-500 self-center m-12 bold ${displayedPoints === 0 ? "animate-pulse" : ""}`}
+      className={
+        "w-full rounded-lg border-4 border-red bg-blue px-2 text-right font-segment text-[46px] text-white"
+      }
       style={{
-        animation: isWinningPosition ? "winning-animation 0.7s infinite alternate linear" : "",
+        animation: isWinningPosition
+          ? "winning-animation 0.7s infinite alternate linear"
+          : "",
       }}
     >
-      Points: {displayedPoints}
+      {displayedPoints}
     </div>
   );
 }
