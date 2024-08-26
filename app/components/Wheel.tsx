@@ -28,7 +28,7 @@ export default function Wheel({
   const pixelOffset = offset * characterHeight;
   const spinTime = 3 + wheelIndex * 0.5;
   const style = {
-    transition: offset === 0 ? undefined : `transform ${spinTime}s linear`,
+    transition: offset === 0 ? "" : `transform ${spinTime}s linear`,
     transform: `translateY(-${pixelOffset}px)`,
   };
   return (
