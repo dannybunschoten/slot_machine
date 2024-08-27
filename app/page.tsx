@@ -9,7 +9,7 @@ import WinningLine, {
 } from "./components/Winningline";
 import { ScoreBoard } from "./components/ScoreBoard";
 import { Fruit } from "./commons/fruits";
-import LockButton from "./components/LockButton";
+import LockButton, { lockButtonState } from "./components/LockButton";
 
 const ITEMS: Fruit[] = [
   "cherries",
@@ -93,22 +93,22 @@ const WINNINGLINES: WinningLine[] = [
 const initializeRollWheelItems = () =>
   Array(NUMBER_OF_WHEELS).fill(["", "", ""]);
 const initializeRollWheelOffsets = () => Array(NUMBER_OF_WHEELS).fill(0);
+const initializeBoth = () => {
+  const rollWheelItems = initializeRollWheelItems();
+  const rollWheelOffsets = initializeRollWheelOffsets();
+  return { rollWheelItems, rollWheelOffsets };
+};
 
 export default function Home() {
-  const [rollWheelItems, setRollWheelItems] = useState(
-    initializeRollWheelItems,
-  );
-  const [rollWheelOffsets, setRollWheelOffsets] = useState(
-    initializeRollWheelOffsets,
-  );
+  const [rollWheels, setRollWheels] = useState(initializeBoth());
   const [points, setPoints] = useState(10);
-  const [lockedWheels, setLockedWheels] = useState(
-    Array(NUMBER_OF_WHEELS).fill(false),
-  );
-  const isRolling = rollWheelOffsets.some((offset) => offset !== 0);
+  const [lockedWheels, setLockedWheels] = useState<
+    ("pressed" | "disabled" | "clickable")[]
+  >(Array(NUMBER_OF_WHEELS).fill("clickable"));
+  const isRolling = rollWheels.rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
     line,
-    score: calculateWinningLineWorth(line, rollWheelItems),
+    score: calculateWinningLineWorth(line, rollWheels.rollWheelItems),
   }));
 
   const isWinningPosition =
@@ -132,7 +132,10 @@ export default function Home() {
       newRollWheelItems.push(createShuffledArray());
     }
 
-    setRollWheelItems(newRollWheelItems);
+    setRollWheels({
+      rollWheelItems: newRollWheelItems,
+      rollWheelOffsets: initializeRollWheelOffsets(),
+    });
   }, []);
 
   const handleClick = () => {
@@ -141,15 +144,23 @@ export default function Home() {
       return;
     }
 
-    const randomOffsets = rollWheelOffsets.map((_, index) => {
+    const randomOffsets = rollWheels.rollWheelOffsets.map((_, index) => {
+      if (lockedWheels[index] === "pressed") {
+        return 0;
+      }
       const randomOffset =
         MIN_ROL_LENGTH * (index * 0.5 + 1) +
         Math.floor(Math.random() * (MAX_ROL_LENGTH - MIN_ROL_LENGTH));
       return randomOffset;
     });
 
-    setRollWheelOffsets(randomOffsets);
+    const newLockedWheels = lockedWheels.map((value) =>
+      value === "pressed" ? "disabled" : "clickable",
+    );
+
+    setRollWheels({ ...rollWheels, rollWheelOffsets: randomOffsets });
     setPoints(points - 1);
+    setLockedWheels(newLockedWheels);
 
     setTimeout(() => {
       const shiftArrayByOffset = (array: Fruit[], offset: number) => {
@@ -160,10 +171,11 @@ export default function Home() {
         return newArray;
       };
 
-      const shiftedRollWheels = rollWheelItems.map((rollWheel, index) =>
-        shiftArrayByOffset(rollWheel, randomOffsets[index]),
+      const shiftedRollWheels = rollWheels.rollWheelItems.map(
+        (rollWheel, index) =>
+          shiftArrayByOffset(rollWheel, randomOffsets[index]),
       );
-      const allZeroOffsets = rollWheelOffsets.map(() => 0);
+      const allZeroOffsets = rollWheels.rollWheelOffsets.map(() => 0);
 
       const scoreCheckedWinningLines = WINNINGLINES.map((winningLine) => {
         return calculateWinningLineWorth(winningLine, shiftedRollWheels);
@@ -174,8 +186,10 @@ export default function Home() {
         0,
       );
 
-      setRollWheelItems(shiftedRollWheels);
-      setRollWheelOffsets(allZeroOffsets);
+      setRollWheels({
+        rollWheelItems: shiftedRollWheels,
+        rollWheelOffsets: allZeroOffsets,
+      });
       setPoints((p) => p + additionalPoints);
     }, 4000);
   };
@@ -204,11 +218,11 @@ export default function Home() {
             isWinningPosition={isWinningPosition}
           />
           <div className="flex w-full flex-row justify-between py-4 lg:py-9">
-            {rollWheelItems.map((rollWheel, index) => (
+            {rollWheels.rollWheelItems.map((rollWheel, index) => (
               <div key={index} className="flex flex-col gap-2">
                 <Wheel
                   items={rollWheel}
-                  offset={rollWheelOffsets[index]}
+                  offset={rollWheels.rollWheelOffsets[index]}
                   winningPositions={getWinningPositions(
                     linesWithScores
                       .filter((line) => line.score !== 0)
@@ -218,13 +232,14 @@ export default function Home() {
                 />
                 <LockButton
                   pressed={lockedWheels[index]}
-                  pressHandler={() =>
+                  setLockedState={(status: lockButtonState) => {
+                    if (isRolling) return;
                     setLockedWheels(
-                      lockedWheels.map((lockedWheel, lockIndex) =>
-                        index === lockIndex ? !lockedWheel : lockedWheel,
+                      lockedWheels.map((value, i) =>
+                        i === index ? status : value,
                       ),
-                    )
-                  }
+                    );
+                  }}
                 />
               </div>
             ))}
