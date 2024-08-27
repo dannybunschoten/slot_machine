@@ -102,9 +102,9 @@ const initializeBoth = () => {
 export default function Home() {
   const [rollWheels, setRollWheels] = useState(initializeBoth());
   const [points, setPoints] = useState(10);
-  const [lockedWheels, setLockedWheels] = useState<
-    ("pressed" | "disabled" | "clickable")[]
-  >(Array(NUMBER_OF_WHEELS).fill("clickable"));
+  const [lockedWheels, setLockedWheels] = useState<lockButtonState[]>(
+    Array(NUMBER_OF_WHEELS).fill("clickable"),
+  );
   const isRolling = rollWheels.rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
     line,
@@ -155,7 +155,7 @@ export default function Home() {
     });
 
     const newLockedWheels = lockedWheels.map((value) =>
-      value === "pressed" ? "disabled" : "clickable",
+      value === "pressed" ? "disabledClicked" : "clickable",
     );
 
     setRollWheels({ ...rollWheels, rollWheelOffsets: randomOffsets });
@@ -191,6 +191,14 @@ export default function Home() {
         rollWheelOffsets: allZeroOffsets,
       });
       setPoints((p) => p + additionalPoints);
+      setLockedWheels((locks) =>
+        locks.map((value) => {
+          if (additionalPoints > 0) {
+            return "disabledNotClicked";
+          }
+          return value === "disabledClicked" ? "disabledNotClicked" : value;
+        }),
+      );
     }, 4000);
   };
 
@@ -247,10 +255,11 @@ export default function Home() {
           <button
             onClick={handleClick}
             disabled={isRolling}
-            className="w-full rounded-lg border-2 border-black bg-red text-[36px] font-bold tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            className="w-full rounded-lg border-2 border-black text-[36px] font-bold tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
               WebkitTextStroke: "4px black",
               paintOrder: "stroke fill",
+              background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
             }}
           >
             {points === 0 && !isRolling ? "Restart" : "Roll"}

@@ -5,11 +5,21 @@ type Props = {
   setLockedState: (state: lockButtonState) => void;
 };
 
-export type lockButtonState = "pressed" | "disabled" | "clickable";
+export type lockButtonState =
+  | "pressed"
+  | "disabledClicked"
+  | "disabledNotClicked"
+  | "clickable";
 
 export default function LockButton({ pressed, setLockedState }: Props) {
-  const startingColor = pressed === "clickable" ? "#FF7B69" : "#FFBDB4";
-  const endingColor = pressed === "clickable" ? "#760E17" : "#CF2634";
+  const startingColor =
+    pressed === "clickable" || pressed === "disabledNotClicked"
+      ? "#FF7B69"
+      : "#FFBDB4";
+  const endingColor =
+    pressed === "clickable" || pressed === "disabledNotClicked"
+      ? "#760E17"
+      : "#CF2634";
   const pressHandler = () => {
     if (pressed === "clickable") {
       setLockedState("pressed");
@@ -25,7 +35,9 @@ export default function LockButton({ pressed, setLockedState }: Props) {
         background: `radial-gradient(50% 50% at 50% 50%, ${startingColor} 0%, ${endingColor} 100%)`,
       }}
       className="rounded-lg border-2 border-black text-[36px] tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
-      disabled={pressed === "disabled"}
+      disabled={
+        pressed === "disabledClicked" || pressed === "disabledNotClicked"
+      }
       onClick={pressHandler}
     >
       Lock
