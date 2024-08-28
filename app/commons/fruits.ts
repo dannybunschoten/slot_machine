@@ -5,5 +5,6 @@ export type Fruit =
   | "grapes"
   | "horseshoe"
   | "lemon"
+  | "orange"
   | "seven"
   | "watermelon";
