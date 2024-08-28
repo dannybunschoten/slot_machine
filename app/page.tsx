@@ -136,6 +136,16 @@ export default function Home() {
       rollWheelItems: newRollWheelItems,
       rollWheelOffsets: initializeRollWheelOffsets(),
     });
+
+    const preloadImages = async () => {
+      const imagePaths = ITEMS.map((item) => `/${item}.png`);
+      for (const path of imagePaths) {
+        const img = new Image();
+        img.src = path;
+        await img.decode(); // Ensures the image is fully loaded
+      }
+    };
+    preloadImages();
   }, []);
 
   const handleClick = () => {
