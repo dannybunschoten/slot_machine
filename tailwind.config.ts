@@ -36,9 +36,13 @@ const config: Config = {
             filter:
               "drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 4px #f0edcc) drop-shadow(0px 0px 6px #e1d89e)",
           },
+          "50%": {
+            filter:
+              "drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 6px #f0edcc) drop-shadow(0px 0px 10px #e1d89e) drop-shadow(0px 0px 15px #f0e467) drop-shadow(0px 0px 25px #ebdd4b)",
+          },
           "100%": {
             filter:
-              "drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 4px #f0edcc) drop-shadow(0px 0px 6px #e1d89e) drop-shadow(0px 0px 8px #f0e467) drop-shadow(0px 0px 15px #ebdd4b)",
+              "drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 4px #f0edcc) drop-shadow(0px 0px 6px #e1d89e)",
           },
         },
         winning: {
@@ -55,6 +59,11 @@ const config: Config = {
           "0%": { transform: "translate(100%, 0)" },
           "100%": { transform: "translate(-300%, 0)" },
         },
+        winningZoom: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.1)" },
+          "100%": { transform: "scale(1)" },
+        },
       },
       animation: {
         roll3: "marquee 4s ease-in-out forwards",
@@ -63,6 +72,8 @@ const config: Config = {
         flash: "flashing 1s ease-in-out infinite",
         winning: "winning 0.7s infinite alternate linear",
         scrolling: "scroll 5s linear infinite",
+        winningZoom:
+          "glow 1.5s ease-in-out infinite, winningZoom 1.5s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

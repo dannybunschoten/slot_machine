@@ -43,5 +43,5 @@ export async function updateHighScores(HighScores: unknown, Name: unknown) {
       data: { score: highScore.score, name: name.data },
     });
   });
-  revalidatePath("");
+  revalidatePath("/");
 }

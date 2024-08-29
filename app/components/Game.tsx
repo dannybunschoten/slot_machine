@@ -13,11 +13,14 @@ import { getNewGame, updateHighScores } from "../commons/actions";
 
 const ITEMS: Fruit[] = [
   "cherries",
-  "clover",
-  "diamond",
-  "grapes",
-  "horseshoe",
-  "lemon",
+  //"clover",
+  //"diamond",
+  //"grapes",
+  //"horseshoe",
+  //"lemon",
+  //"orange",
+  //"seven",
+  //"watermelon",
 ];
 const NUMBER_OF_ITEMS_PER_WHEEL = 180;
 const NUMBER_OF_WHEELS = 3;
@@ -210,8 +213,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
         }),
       );
     }
-    setMultiplier(Math.min(multiplier, points));
-  }, [points, isWinningPosition, multiplier]);
+  }, [points, isWinningPosition]);
 
   const handleClick = () => {
     if (points === 0) {
@@ -273,7 +275,14 @@ export default function Game({ children }: { children: React.ReactNode }) {
         rollWheelItems: shiftedRollWheels,
         rollWheelOffsets: allZeroOffsets,
       });
-      setPoints((p) => p + additionalPoints);
+      setPoints((p) => {
+        const newPoints = p + additionalPoints;
+        if (additionalPoints > 0) {
+          displayUserMessage(`You won ${additionalPoints} points!`);
+        }
+        setMultiplier(Math.min(multiplier, newPoints));
+        return newPoints;
+      });
       setLockedWheels((locks) =>
         locks.map((value) => {
           if (additionalPoints > 0) {
@@ -282,9 +291,6 @@ export default function Game({ children }: { children: React.ReactNode }) {
           return value === "disabledClicked" ? "disabledNotClicked" : value;
         }),
       );
-      if (additionalPoints > 0) {
-        displayUserMessage(`You won ${additionalPoints} points!`);
-      }
     }, 4000);
   };
   return (
