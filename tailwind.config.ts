@@ -23,7 +23,7 @@ const config: Config = {
     },
     extend: {
       screens: {
-        smallHeight: { raw: "(min-height: 700px)" },
+        smallHeight: { raw: "(min-height: 600px)" },
       },
       keyframes: {
         marquee: {
