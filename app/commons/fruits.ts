@@ -12,35 +12,35 @@ export const fruits: Fruit[] = [
     imageSrc: require("../../public/cherries.png"),
     worth: 1,
   },
-  {
-    name: "watermelon",
-    imageSrc: require("../../public/watermelon.png"),
-    worth: 1,
-  },
-  {
-    name: "grapes",
-    imageSrc: require("../../public/grapes.png"),
-    worth: 1,
-  },
+  //{
+  //  name: "watermelon",
+  //  imageSrc: require("../../public/watermelon.png"),
+  //  worth: 1,
+  //},
+  //{
+  //  name: "grapes",
+  //  imageSrc: require("../../public/grapes.png"),
+  //  worth: 1,
+  //},
   {
     name: "horseshoe",
     imageSrc: require("../../public/horseshoe.png"),
     worth: 1,
   },
-  {
-    name: "orange",
-    imageSrc: require("../../public/orange.png"),
-    worth: 1,
-  },
+  //{
+  //  name: "orange",
+  //  imageSrc: require("../../public/orange.png"),
+  //  worth: 1,
+  //},
+  //{
+  //  name: "lemon",
+  //  imageSrc: require("../../public/lemon.png"),
+  //  worth: 3,
+  //},
   {
     name: "clover",
     imageSrc: require("../../public/clover.png"),
     worth: 5,
-  },
-  {
-    name: "lemon",
-    imageSrc: require("../../public/lemon.png"),
-    worth: 3,
   },
   {
     name: "seven",
