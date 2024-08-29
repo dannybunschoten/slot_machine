@@ -1,5 +1,4 @@
 import React from "react";
-import prisma from "../commons/db";
 
 export const HighScoreBoard = ({
   children,
@@ -20,7 +19,7 @@ export const HighScoreBoard = ({
         type="text"
         className="mt-2 w-full overflow-hidden rounded-lg border-4 border-red bg-blue px-2 text-right font-display text-[46px] text-white shadow-none focus:outline-none"
         placeholder="Enter your name"
-        defaultValue={userName}
+        defaultValue={userName === "Default User" ? "" : userName}
         onChange={(e) => setUserName(e.target.value)}
       ></input>
     </div>
