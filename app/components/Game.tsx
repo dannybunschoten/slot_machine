@@ -1,7 +1,7 @@
 "use client";
 
 import Wheel from "./Wheel";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import WinningLine, {
   calculateWinningLineWorth,
   getWinningPositions,
@@ -131,14 +131,41 @@ export default function Game({ children }: { children: React.ReactNode }) {
   );
   const [highScores, setHighScores] = useState<HighScore[]>([]);
   const [userName, setUserName] = useState("Default User");
+  const [multiplier, setMultiplier] = useState(1);
+  const [userMessage, setUserMessage] = useState("");
+  const userMessageTimeoutId = useRef<NodeJS.Timeout | null>(null);
   const isRolling = rollWheels.rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
     line,
-    score: calculateWinningLineWorth(line, rollWheels.rollWheelItems),
+    score: calculateWinningLineWorth(
+      line,
+      rollWheels.rollWheelItems,
+      multiplier,
+    ),
   }));
 
   const isWinningPosition =
     linesWithScores.some((line) => line.score !== 0) && !isRolling;
+
+  function displayUserMessage(message: string) {
+    setUserMessage(message);
+    if (userMessageTimeoutId.current) {
+      clearTimeout(userMessageTimeoutId.current);
+    }
+
+    userMessageTimeoutId.current = setTimeout(() => {
+      setUserMessage("");
+      userMessageTimeoutId.current = null;
+    }, 3000);
+  }
+
+  function changeMultiplier(value: number) {
+    setMultiplier((prevMultiplier) => {
+      const newMultiplier = prevMultiplier + value;
+      displayUserMessage(`Multiplier: ${newMultiplier}`);
+      return newMultiplier;
+    });
+  }
 
   useEffect(() => {
     const createShuffledArray = () => {
@@ -209,7 +236,8 @@ export default function Game({ children }: { children: React.ReactNode }) {
     );
 
     setRollWheels({ ...rollWheels, rollWheelOffsets: randomOffsets });
-    setPoints(points - 1);
+    setPoints(points - 1 * multiplier);
+    setMultiplier(Math.min(multiplier, points));
     setLockedWheels(newLockedWheels);
 
     setTimeout(() => {
@@ -228,7 +256,11 @@ export default function Game({ children }: { children: React.ReactNode }) {
       const allZeroOffsets = rollWheels.rollWheelOffsets.map(() => 0);
 
       const scoreCheckedWinningLines = WINNINGLINES.map((winningLine) => {
-        return calculateWinningLineWorth(winningLine, shiftedRollWheels);
+        return calculateWinningLineWorth(
+          winningLine,
+          shiftedRollWheels,
+          multiplier,
+        );
       });
 
       const additionalPoints = scoreCheckedWinningLines.reduce(
@@ -271,6 +303,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
           isWinningPosition={isWinningPosition}
           userName={userName}
           setUserName={setUserName}
+          displayMessage={userMessage}
         >
           {children}
         </ScoreBoard>
@@ -301,16 +334,38 @@ export default function Game({ children }: { children: React.ReactNode }) {
             </div>
           ))}
         </div>
-        <button
-          onClick={handleClick}
-          disabled={isRolling}
-          className="w-full rounded-lg border-2 border-black text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
-          style={{
-            background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
-          }}
-        >
-          {points === 0 && !isRolling ? "Restart" : "Roll"}
-        </button>
+        <div className="flex w-full flex-row gap-4">
+          <button
+            disabled={multiplier === 1}
+            onClick={changeMultiplier.bind(null, -1)}
+            className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            style={{
+              background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
+            }}
+          >
+            -
+          </button>
+          <button
+            onClick={handleClick}
+            disabled={isRolling}
+            className="flex-1 rounded-lg border-2 border-black text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            style={{
+              background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
+            }}
+          >
+            {points === 0 && !isRolling ? "Restart" : "Roll"}
+          </button>
+          <button
+            disabled={multiplier === points}
+            onClick={changeMultiplier.bind(null, 1)}
+            className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            style={{
+              background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
+            }}
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

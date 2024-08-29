@@ -9,6 +9,7 @@ export default interface WinningLine {
 export function calculateWinningLineWorth(
   line: WinningLine,
   rollWheels: Fruit[][],
+  multiplier: number,
 ) {
   let prevChar: Fruit | undefined = undefined;
   for (const pos of line.positions) {
@@ -20,7 +21,7 @@ export function calculateWinningLineWorth(
     prevChar = currentChar;
   }
   if (prevChar !== undefined) {
-    return calculateScore(line.multiplier, prevChar);
+    return calculateScore(line.multiplier, prevChar) * multiplier;
   }
   console.error("prevChar was undefined");
   return 0;

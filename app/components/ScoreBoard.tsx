@@ -7,12 +7,14 @@ export function ScoreBoard({
   isWinningPosition,
   userName,
   setUserName,
+  displayMessage,
   children,
 }: {
   totalPoints: number;
   isWinningPosition: boolean;
   userName: string;
   setUserName: (name: string) => void;
+  displayMessage: string;
   children: React.ReactNode;
 }) {
   const [displayedPoints, setDisplayedPoints] = useState(totalPoints);
@@ -22,6 +24,9 @@ export function ScoreBoard({
   const displayText = showPoints
     ? `${displayedPoints} points`
     : "click here for the leaderboard";
+  const isDisplayingGameMessage = displayMessage !== "";
+  const shouldBeGlowing =
+    isWinningPosition && showPoints && !isDisplayingGameMessage;
 
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
@@ -60,7 +65,7 @@ export function ScoreBoard({
   return (
     <>
       <div
-        className={`w-full overflow-hidden rounded-lg border-4 border-red bg-blue px-2 text-right font-segment text-[46px] ${!showPoints ? "lg:text-center" : ""} text-white ${isWinningPosition && showPoints ? "animate-winning" : ""}`}
+        className={`w-full overflow-hidden rounded-lg border-4 border-red bg-blue px-2 text-right font-segment text-[46px] ${!showPoints ? "lg:text-center" : ""} text-white ${shouldBeGlowing ? "animate-winning" : ""}`}
         onClick={() => {
           if (showPoints) {
             return;
@@ -69,9 +74,9 @@ export function ScoreBoard({
         }}
       >
         <div
-          className={`whitespace-nowrap ${!showPoints && isMobile ? "animate-scrolling" : ""}`}
+          className={`whitespace-nowrap ${!showPoints && isMobile && !displayMessage ? "animate-scrolling" : ""}`}
         >
-          {displayText}
+          {displayMessage || displayText}
         </div>
       </div>
       {isModalOpen && (
