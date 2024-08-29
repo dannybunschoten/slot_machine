@@ -30,7 +30,6 @@ export function Item({ item, isWinning }: { item: Fruit; isWinning: boolean }) {
     <div
       className={`flex items-center justify-center p-2 lg:p-4 ${isWinning ? "animate-[glow_0.7s_alternate_infinite]" : ""}`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <Image
         src={map[item]}
         alt={item}

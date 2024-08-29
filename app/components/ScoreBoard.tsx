@@ -5,10 +5,14 @@ import { HighScoreBoard } from "./HighScoreBoard";
 export function ScoreBoard({
   totalPoints,
   isWinningPosition,
+  userName,
+  setUserName,
   children,
 }: {
   totalPoints: number;
   isWinningPosition: boolean;
+  userName: string;
+  setUserName: (name: string) => void;
   children: React.ReactNode;
 }) {
   const [displayedPoints, setDisplayedPoints] = useState(totalPoints);
@@ -41,10 +45,10 @@ export function ScoreBoard({
   useEffect(() => {
     const toggleInterval = setInterval(() => {
       setShowPoints(false);
-      const timeout = setTimeout(() => {
+      setTimeout(() => {
         setShowPoints(true);
-      }, 15000);
-    }, 16000);
+      }, 5000);
+    }, 10000);
 
     setIsMobile(window.innerWidth > 1024 ? false : true);
 
@@ -70,7 +74,13 @@ export function ScoreBoard({
           {displayText}
         </div>
       </div>
-      {isModalOpen && <Modal onClose={closeModal}>{children}</Modal>}
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <HighScoreBoard userName={userName} setUserName={setUserName}>
+            {children}
+          </HighScoreBoard>
+        </Modal>
+      )}
     </>
   );
 }

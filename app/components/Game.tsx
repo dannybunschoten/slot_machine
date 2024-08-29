@@ -9,6 +9,7 @@ import WinningLine, {
 import { ScoreBoard } from "./ScoreBoard";
 import { Fruit } from "./../commons/fruits";
 import LockButton, { lockButtonState } from "./LockButton";
+import { getNewGame, updateHighScores } from "../commons/actions";
 
 const ITEMS: Fruit[] = [
   "cherries",
@@ -98,12 +99,38 @@ const initializeBoth = () => {
   return { rollWheelItems, rollWheelOffsets };
 };
 
+async function createNewHighScore(
+  points: number,
+  highScores: HighScore[],
+  name: string,
+): Promise<HighScore[]> {
+  const newId = await getNewGame(name);
+  return [...highScores, { id: newId, score: points }];
+}
+
+async function increaseHighScores(highScores: HighScore[], points: number) {
+  const maxId = Math.max(...highScores.map((highScore) => highScore.id));
+  return highScores.map((highScore) => {
+    if (highScore.id === maxId) {
+      return { ...highScore, score: Math.max(highScore.score, points) };
+    }
+    return highScore;
+  });
+}
+
+type HighScore = {
+  id: number;
+  score: number;
+};
+
 export default function Game({ children }: { children: React.ReactNode }) {
   const [rollWheels, setRollWheels] = useState(initializeBoth());
   const [points, setPoints] = useState(10);
   const [lockedWheels, setLockedWheels] = useState<lockButtonState[]>(
     Array(NUMBER_OF_WHEELS).fill("clickable"),
   );
+  const [highScores, setHighScores] = useState<HighScore[]>([]);
+  const [userName, setUserName] = useState("Default User");
   const isRolling = rollWheels.rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
     line,
@@ -135,10 +162,34 @@ export default function Game({ children }: { children: React.ReactNode }) {
       rollWheelItems: newRollWheelItems,
       rollWheelOffsets: initializeRollWheelOffsets(),
     });
+
+    createNewHighScore(10, [], "anonymous").then((highScores) =>
+      setHighScores(highScores),
+    );
   }, []);
+
+  useEffect(() => {
+    updateHighScores(highScores, userName);
+  }, [highScores, userName]);
+
+  useEffect(() => {
+    if (isWinningPosition && points > 0) {
+      setHighScores((prevHighScores) =>
+        prevHighScores.map((highScore) => {
+          if (highScore.id === Math.max(...prevHighScores.map((hs) => hs.id))) {
+            return { ...highScore, score: Math.max(highScore.score, points) };
+          }
+          return highScore;
+        }),
+      );
+    }
+  }, [points, isWinningPosition]);
 
   const handleClick = () => {
     if (points === 0) {
+      createNewHighScore(10, highScores, userName).then((highScores) =>
+        setHighScores(highScores),
+      );
       setPoints(10);
       return;
     }
@@ -215,7 +266,12 @@ export default function Game({ children }: { children: React.ReactNode }) {
         </h1>
       </div>
       <div className="flex w-full flex-col items-center justify-center rounded-xl border-8 border-red bg-gold p-4 lg:p-10">
-        <ScoreBoard totalPoints={points} isWinningPosition={isWinningPosition}>
+        <ScoreBoard
+          totalPoints={points}
+          isWinningPosition={isWinningPosition}
+          userName={userName}
+          setUserName={setUserName}
+        >
           {children}
         </ScoreBoard>
         <div className="flex w-full flex-row justify-between py-4 lg:py-9">
@@ -255,6 +311,11 @@ export default function Game({ children }: { children: React.ReactNode }) {
         >
           {points === 0 && !isRolling ? "Restart" : "Roll"}
         </button>
+        <div>
+          {highScores.map((hs) => {
+            return <div key={hs.id}>{hs.score}</div>;
+          })}
+        </div>
       </div>
     </div>
   );
