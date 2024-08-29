@@ -27,6 +27,7 @@ export function ScoreBoard({
   const isDisplayingGameMessage = displayMessage !== "";
   const shouldBeGlowing =
     isWinningPosition && showPoints && !isDisplayingGameMessage;
+  const shouldBeCentered = !showPoints || isDisplayingGameMessage;
 
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
@@ -65,7 +66,7 @@ export function ScoreBoard({
   return (
     <>
       <div
-        className={`w-full overflow-hidden rounded-lg border-4 border-red bg-blue px-2 text-right font-segment text-[46px] ${!showPoints ? "lg:text-center" : ""} text-white ${shouldBeGlowing ? "animate-winning" : ""}`}
+        className={`w-full overflow-hidden rounded-lg border-4 border-red bg-blue px-2 text-right font-segment text-[46px] ${shouldBeCentered ? "lg:text-center" : ""} text-white ${shouldBeGlowing ? "animate-winning" : ""}`}
         onClick={() => {
           if (showPoints) {
             return;

@@ -200,7 +200,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
   }, [highScores, userName]);
 
   useEffect(() => {
-    if (isWinningPosition && points > 0) {
+    if (isWinningPosition) {
       setHighScores((prevHighScores) =>
         prevHighScores.map((highScore) => {
           if (highScore.id === Math.max(...prevHighScores.map((hs) => hs.id))) {
@@ -210,7 +210,8 @@ export default function Game({ children }: { children: React.ReactNode }) {
         }),
       );
     }
-  }, [points, isWinningPosition]);
+    setMultiplier(Math.min(multiplier, points));
+  }, [points, isWinningPosition, multiplier]);
 
   const handleClick = () => {
     if (points === 0) {
@@ -218,6 +219,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
         setHighScores(highScores),
       );
       setPoints(10);
+      setMultiplier(1);
       return;
     }
 
@@ -237,7 +239,6 @@ export default function Game({ children }: { children: React.ReactNode }) {
 
     setRollWheels({ ...rollWheels, rollWheelOffsets: randomOffsets });
     setPoints(points - 1 * multiplier);
-    setMultiplier(Math.min(multiplier, points));
     setLockedWheels(newLockedWheels);
 
     setTimeout(() => {
@@ -281,6 +282,9 @@ export default function Game({ children }: { children: React.ReactNode }) {
           return value === "disabledClicked" ? "disabledNotClicked" : value;
         }),
       );
+      if (additionalPoints > 0) {
+        displayUserMessage(`You won ${additionalPoints} points!`);
+      }
     }, 4000);
   };
   return (
@@ -336,7 +340,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
         </div>
         <div className="flex w-full flex-row gap-4">
           <button
-            disabled={multiplier === 1}
+            disabled={multiplier <= 1}
             onClick={changeMultiplier.bind(null, -1)}
             className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
@@ -356,7 +360,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
             {points === 0 && !isRolling ? "Restart" : "Roll"}
           </button>
           <button
-            disabled={multiplier === points}
+            disabled={multiplier >= points}
             onClick={changeMultiplier.bind(null, 1)}
             className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
