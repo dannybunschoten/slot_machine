@@ -48,7 +48,7 @@ export function ScoreBoard({
       setTimeout(() => {
         setShowPoints(true);
       }, 5000);
-    }, 10000);
+    }, 15000);
 
     setIsMobile(window.innerWidth > 1024 ? false : true);
 

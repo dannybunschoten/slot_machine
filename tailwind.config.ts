@@ -53,7 +53,7 @@ const config: Config = {
         },
         scroll: {
           "0%": { transform: "translate(100%, 0)" },
-          "100%": { transform: "translate(-250%, 0)" },
+          "100%": { transform: "translate(-300%, 0)" },
         },
       },
       animation: {
@@ -62,7 +62,7 @@ const config: Config = {
         roll5: "marquee 5s ease-in-out forwards",
         flash: "flashing 1s ease-in-out infinite",
         winning: "winning 0.7s infinite alternate linear",
-        scrolling: "scroll 10s linear infinite",
+        scrolling: "scroll 5s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
