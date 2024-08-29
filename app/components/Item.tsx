@@ -31,7 +31,7 @@ export function Item({ item, isWinning }: { item: Fruit; isWinning: boolean }) {
       className={`flex items-center justify-center p-2 lg:p-4 ${isWinning ? "animate-[glow_0.7s_alternate_infinite]" : ""}`}
     >
       <Image
-        src={map[item]}
+        src={map[item] || seven}
         alt={item}
         className="h-[60px] w-[60px] rotate-180 lg:h-[96px] lg:w-[96px]"
         priority

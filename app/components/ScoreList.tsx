@@ -12,10 +12,8 @@ export const ScoreList = async () => {
     <ol className="list-inside list-decimal marker:text-black">
       {highScores.map((score, index) => (
         <li key={index} className="list-item text-3xl">
-          <div className="flex w-full items-center justify-between">
-            <span>{score.name}</span>
-            <span>{score.score}</span>
-          </div>
+          <span>{score.name || "Default User"}</span>
+          <span className="float-end">{score.score}</span>
         </li>
       ))}
     </ol>
