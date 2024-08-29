@@ -311,11 +311,6 @@ export default function Game({ children }: { children: React.ReactNode }) {
         >
           {points === 0 && !isRolling ? "Restart" : "Roll"}
         </button>
-        <div>
-          {highScores.map((hs) => {
-            return <div key={hs.id}>{hs.score}</div>;
-          })}
-        </div>
       </div>
     </div>
   );
