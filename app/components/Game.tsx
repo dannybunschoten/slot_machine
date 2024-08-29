@@ -342,7 +342,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
           <button
             disabled={multiplier <= 1}
             onClick={changeMultiplier.bind(null, -1)}
-            className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            className="w-16 rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
               background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
             }}
@@ -362,7 +362,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
           <button
             disabled={multiplier >= points}
             onClick={changeMultiplier.bind(null, 1)}
-            className="w-auto rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            className="w-16 rounded-lg border-2 border-black px-4 text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint active:scale-95 disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
               background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
             }}
