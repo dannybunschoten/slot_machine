@@ -13,14 +13,14 @@ import { getNewGame, updateHighScores } from "../commons/actions";
 
 const ITEMS: Fruit[] = [
   "cherries",
-  //"clover",
-  //"diamond",
-  //"grapes",
-  //"horseshoe",
-  //"lemon",
-  //"orange",
-  //"seven",
+  "lemon",
+  "orange",
   //"watermelon",
+  //"grapes",
+  //"clover",
+  "diamond",
+  "horseshoe",
+  "seven",
 ];
 const NUMBER_OF_ITEMS_PER_WHEEL = 180;
 const NUMBER_OF_WHEELS = 3;
