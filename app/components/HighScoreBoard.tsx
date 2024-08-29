@@ -1,12 +1,9 @@
 import React from "react";
+import prisma from "../commons/db";
 
-export const HighScoreBoard = (props: {}) => {
-  const highScores = [
-    { name: "John", score: 100 },
-    { name: "Jane", score: 200 },
-    { name: "Doe", score: 300 },
-    { name: "Smith", score: 400 },
-  ];
+export const HighScoreBoard = async () => {
+  const highScores = await prisma.highScore.findMany();
+
   return (
     <div>
       <h1 className="text-center font-display text-[60px] tracking-wide text-white stroke-and-paint">
@@ -18,7 +15,7 @@ export const HighScoreBoard = (props: {}) => {
             key={index}
             className="flex w-full items-center justify-between text-3xl"
           >
-            <span>{score.name}</span>
+            <span>{score.user}</span>
             <span>{score.score}</span>
           </li>
         ))}

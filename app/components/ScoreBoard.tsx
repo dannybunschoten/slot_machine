@@ -5,9 +5,11 @@ import { HighScoreBoard } from "./HighScoreBoard";
 export function ScoreBoard({
   totalPoints,
   isWinningPosition,
+  children,
 }: {
   totalPoints: number;
   isWinningPosition: boolean;
+  children: React.ReactNode;
 }) {
   const [displayedPoints, setDisplayedPoints] = useState(totalPoints);
   const [showPoints, setShowPoints] = useState(false);
@@ -68,11 +70,7 @@ export function ScoreBoard({
           {displayText}
         </div>
       </div>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <HighScoreBoard></HighScoreBoard>
-        </Modal>
-      )}
+      {isModalOpen && <Modal onClose={closeModal}>{children}</Modal>}
     </>
   );
 }
