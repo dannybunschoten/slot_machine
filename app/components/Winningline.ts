@@ -1,4 +1,3 @@
-import { never } from "zod";
 import { Fruit } from "../commons/fruits";
 import Position from "./Position";
 
@@ -32,25 +31,7 @@ export function calculateScore(
   multiplier: number,
   winning_char: Fruit,
 ): number {
-  switch (winning_char) {
-    case "cherries":
-    case "watermelon":
-    case "grapes":
-    case "horseshoe":
-    case "orange":
-      return multiplier * 3;
-    case "clover":
-    case "lemon":
-    case "seven":
-      return multiplier * 5;
-    case "diamond":
-      return multiplier * 10;
-    default:
-      console.error(`Unhandled character: ${winning_char}`);
-      // add compiler error if we forget to handle a case
-      never;
-      return 0;
-  }
+  return winning_char.worth * multiplier;
 }
 
 export function getWinningPositions(winningLines: WinningLine[]) {

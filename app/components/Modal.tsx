@@ -13,7 +13,7 @@ export const Modal = ({ onClose, children }: propTypes) => {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[600px] rounded-lg border-4 border-red bg-gray p-6 shadow-lg"
+        className="relative max-h-full w-full max-w-[600px] overflow-y-auto rounded-lg border-4 border-red bg-gray p-6 shadow-lg"
       >
         <button className="absolute right-6 top-6 text-3xl" onClick={onClose}>
           &times;

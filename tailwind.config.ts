@@ -22,6 +22,9 @@ const config: Config = {
       segment: ["var(--font-segment)", "sans-serif"],
     },
     extend: {
+      screens: {
+        smallHeight: { raw: "(min-height: 700px)" },
+      },
       keyframes: {
         marquee: {
           "0%": { transform: "translate3d(0, var(--translate-y-from), 0)" },

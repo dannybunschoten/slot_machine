@@ -10,18 +10,11 @@ import { ScoreBoard } from "./ScoreBoard";
 import { Fruit } from "./../commons/fruits";
 import LockButton, { lockButtonState } from "./LockButton";
 import { getNewGame, updateHighScores } from "../commons/actions";
+import { Modal } from "./Modal";
+import { ItemWorth } from "./ItemWorth";
+import { fruits } from "../commons/fruits";
 
-const ITEMS: Fruit[] = [
-  "cherries",
-  "lemon",
-  "orange",
-  //"watermelon",
-  //"grapes",
-  //"clover",
-  "diamond",
-  "horseshoe",
-  "seven",
-];
+const ITEMS = fruits;
 const NUMBER_OF_ITEMS_PER_WHEEL = 180;
 const NUMBER_OF_WHEELS = 3;
 const MIN_ROL_LENGTH = 30;
@@ -111,16 +104,6 @@ async function createNewHighScore(
   return [...highScores, { id: newId, score: points }];
 }
 
-async function increaseHighScores(highScores: HighScore[], points: number) {
-  const maxId = Math.max(...highScores.map((highScore) => highScore.id));
-  return highScores.map((highScore) => {
-    if (highScore.id === maxId) {
-      return { ...highScore, score: Math.max(highScore.score, points) };
-    }
-    return highScore;
-  });
-}
-
 type HighScore = {
   id: number;
   score: number;
@@ -136,6 +119,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
   const [userName, setUserName] = useState("Default User");
   const [multiplier, setMultiplier] = useState(1);
   const [userMessage, setUserMessage] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const userMessageTimeoutId = useRef<NodeJS.Timeout | null>(null);
   const isRolling = rollWheels.rollWheelOffsets.some((offset) => offset !== 0);
   const linesWithScores = WINNINGLINES.map((line) => ({
@@ -146,6 +130,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
       multiplier,
     ),
   }));
+  const closeModal = () => setOpenModal(false);
 
   const isWinningPosition =
     linesWithScores.some((line) => line.score !== 0) && !isRolling;
@@ -295,9 +280,9 @@ export default function Game({ children }: { children: React.ReactNode }) {
   };
   return (
     <div className="flex w-full max-w-[800px] flex-col items-center justify-center">
-      <div className="flex h-[80px] w-[300px] items-center justify-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold lg:w-[600px]">
+      <div className="relative hidden h-[80px] w-[300px] items-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold lg:w-[600px] smallHeight:flex">
         <h1
-          className="text-center font-display text-[60px] tracking-wide text-white stroke-and-paint"
+          className="w-full text-center font-display text-[60px] tracking-wide text-white stroke-and-paint"
           style={{
             animation: isWinningPosition
               ? "winning-animation 0.7s infinite alternate linear"
@@ -306,6 +291,17 @@ export default function Game({ children }: { children: React.ReactNode }) {
         >
           WIN
         </h1>
+        <button
+          className="absolute right-6 top-3 text-5xl text-white stroke-and-paint"
+          onClick={() => setOpenModal(true)}
+        >
+          ?
+        </button>
+        {openModal && (
+          <Modal onClose={closeModal}>
+            <ItemWorth />
+          </Modal>
+        )}
       </div>
       <div className="flex w-full flex-col items-center justify-center rounded-xl border-8 border-red bg-gold p-4 lg:p-10">
         <ScoreBoard
