@@ -11,7 +11,7 @@ export const HighScoreBoard = ({
 }) => {
   return (
     <div>
-      <h1 className="text-center font-display text-[60px] tracking-wide text-white stroke-and-paint">
+      <h1 className="text-center font-display text-5xl tracking-wide text-white stroke-and-paint">
         High Scores
       </h1>
       {children}

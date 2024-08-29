@@ -3,7 +3,7 @@ import prisma from "../commons/db";
 
 export const ScoreList = async () => {
   const highScores = await prisma.highScore.findMany({
-    take: 10,
+    take: 5,
     orderBy: {
       score: "desc",
     },

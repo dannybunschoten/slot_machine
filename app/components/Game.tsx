@@ -26,7 +26,7 @@ const WINNINGLINES: WinningLine[] = [
       { wheelIndex: 1, itemIndex: 0 },
       { wheelIndex: 2, itemIndex: 0 },
     ],
-    multiplier: 3,
+    multiplier: 1,
   },
   {
     positions: [
@@ -34,7 +34,7 @@ const WINNINGLINES: WinningLine[] = [
       { wheelIndex: 1, itemIndex: 1 },
       { wheelIndex: 2, itemIndex: 1 },
     ],
-    multiplier: 5,
+    multiplier: 3,
   },
   {
     positions: [
@@ -42,32 +42,32 @@ const WINNINGLINES: WinningLine[] = [
       { wheelIndex: 1, itemIndex: 2 },
       { wheelIndex: 2, itemIndex: 2 },
     ],
-    multiplier: 3,
+    multiplier: 1,
   },
-  {
-    positions: [
-      { wheelIndex: 0, itemIndex: 0 },
-      { wheelIndex: 0, itemIndex: 1 },
-      { wheelIndex: 0, itemIndex: 2 },
-    ],
-    multiplier: 3,
-  },
-  {
-    positions: [
-      { wheelIndex: 1, itemIndex: 0 },
-      { wheelIndex: 1, itemIndex: 1 },
-      { wheelIndex: 1, itemIndex: 2 },
-    ],
-    multiplier: 5,
-  },
-  {
-    positions: [
-      { wheelIndex: 2, itemIndex: 0 },
-      { wheelIndex: 2, itemIndex: 1 },
-      { wheelIndex: 2, itemIndex: 2 },
-    ],
-    multiplier: 3,
-  },
+  //{
+  //  positions: [
+  //    { wheelIndex: 0, itemIndex: 0 },
+  //    { wheelIndex: 0, itemIndex: 1 },
+  //    { wheelIndex: 0, itemIndex: 2 },
+  //  ],
+  //  multiplier: 3,
+  //},
+  //{
+  //  positions: [
+  //    { wheelIndex: 1, itemIndex: 0 },
+  //    { wheelIndex: 1, itemIndex: 1 },
+  //    { wheelIndex: 1, itemIndex: 2 },
+  //  ],
+  //  multiplier: 5,
+  //},
+  //{
+  //  positions: [
+  //    { wheelIndex: 2, itemIndex: 0 },
+  //    { wheelIndex: 2, itemIndex: 1 },
+  //    { wheelIndex: 2, itemIndex: 2 },
+  //  ],
+  //  multiplier: 3,
+  //},
   {
     positions: [
       { wheelIndex: 0, itemIndex: 0 },
