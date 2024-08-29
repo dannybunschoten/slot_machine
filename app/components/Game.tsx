@@ -163,7 +163,7 @@ export default function Game({ children }: { children: React.ReactNode }) {
       rollWheelOffsets: initializeRollWheelOffsets(),
     });
 
-    createNewHighScore(10, [], "anonymous").then((highScores) =>
+    createNewHighScore(10, [], "Default User").then((highScores) =>
       setHighScores(highScores),
     );
   }, []);
