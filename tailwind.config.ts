@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { PluginAPI } from "tailwindcss/types/config";
 
 // tailwind.config.js
 const config: Config = {
@@ -40,12 +41,28 @@ const config: Config = {
               "drop-shadow(0px 0px 2px #fff) drop-shadow(0px 0px 4px #f0edcc) drop-shadow(0px 0px 6px #e1d89e) drop-shadow(0px 0px 8px #f0e467) drop-shadow(0px 0px 15px #ebdd4b)",
           },
         },
+        winning: {
+          "0%": {
+            "text-shadow":
+              "0 0 10px #fff, 0 0 20px #f0edcc, 0 0 30px #e1d89e, 0 0 40px #f0e467",
+          },
+          "100%": {
+            "text-shadow":
+              "0 0 10px #fff, 0 0 20px #f0edcc, 0 0 30px #e1d89e, 0 0 40px #f0e467, 0 0 50px #ebdd4b, 0 0 60px #eddd37, 0 0 70px #f0df30",
+          },
+        },
+        scroll: {
+          "0%": { transform: "translate(0, 0)" },
+          "100%": { transform: "translate(-250%, 0)" },
+        },
       },
       animation: {
         roll3: "marquee 4s ease-in-out forwards",
         roll4: "marquee 4.5s ease-in-out forwards",
         roll5: "marquee 5s ease-in-out forwards",
         flash: "flashing 1s ease-in-out infinite",
+        winning: "winning 0.7s infinite alternate linear",
+        scrolling: "scroll 10s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -58,6 +75,15 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities({
+        ".stroke-and-paint": {
+          "-webkit-text-stroke": "5px black",
+          "paint-order": "stroke fill",
+        },
+      });
+    },
+  ],
 };
 export default config;

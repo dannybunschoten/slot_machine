@@ -30,11 +30,9 @@ export default function LockButton({ pressed, setLockedState }: Props) {
   return (
     <button
       style={{
-        WebkitTextStroke: "4px black",
-        paintOrder: "stroke fill",
         background: `radial-gradient(50% 50% at 50% 50%, ${startingColor} 0%, ${endingColor} 100%)`,
       }}
-      className="rounded-lg border-2 border-black text-[36px] tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+      className="rounded-lg border-2 border-black text-[36px] tracking-wider text-white transition-colors stroke-and-paint disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
       disabled={
         pressed === "disabledClicked" || pressed === "disabledNotClicked"
       }

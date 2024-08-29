@@ -2,23 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes winning-animation {
-  0% {
-    text-shadow:
-      0 0 10px #fff,
-      0 0 20px #f0edcc,
-      0 0 30px #e1d89e,
-      0 0 40px #f0e467;
-  }
-
-  100% {
-    text-shadow:
-      0 0 10px #fff,
-      0 0 20px #f0edcc,
-      0 0 30px #e1d89e,
-      0 0 40px #f0e467,
-      0 0 50px #ebdd4b,
-      0 0 60px #eddd37,
-      0 0 70px #f0df30;
-  }
-}

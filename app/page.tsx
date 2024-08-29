@@ -136,16 +136,6 @@ export default function Home() {
       rollWheelItems: newRollWheelItems,
       rollWheelOffsets: initializeRollWheelOffsets(),
     });
-
-    const preloadImages = async () => {
-      const imagePaths = ITEMS.map((item) => `/${item}.png`);
-      for (const path of imagePaths) {
-        const img = new Image();
-        img.src = path;
-        await img.decode(); // Ensures the image is fully loaded
-      }
-    };
-    preloadImages();
   }, []);
 
   const handleClick = () => {
@@ -218,10 +208,8 @@ export default function Home() {
       <div className="flex w-full max-w-[800px] flex-col items-center justify-center">
         <div className="flex h-[80px] w-[300px] items-center justify-center rounded-tl-xl rounded-tr-xl border-8 border-b-0 border-red bg-gold lg:w-[600px]">
           <h1
-            className="text-center font-display text-[60px] tracking-wide text-white"
+            className="text-center font-display text-[60px] tracking-wide text-white stroke-and-paint"
             style={{
-              WebkitTextStroke: "5px black",
-              paintOrder: "stroke fill",
               animation: isWinningPosition
                 ? "winning-animation 0.7s infinite alternate linear"
                 : "",
@@ -265,10 +253,8 @@ export default function Home() {
           <button
             onClick={handleClick}
             disabled={isRolling}
-            className="w-full rounded-lg border-2 border-black text-[36px] font-bold tracking-wider text-white transition-colors disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
+            className="w-full rounded-lg border-2 border-black text-[36px] font-bold tracking-[0.08em] text-white transition-colors stroke-and-paint disabled:border-[#A9A9A9] disabled:bg-[#D3D3D3] disabled:text-[#D3D3D3] disabled:opacity-60"
             style={{
-              WebkitTextStroke: "4px black",
-              paintOrder: "stroke fill",
               background: `radial-gradient(50% 50% at 50% 50%, #FF7B69 0%, #760E17 100%)`,
             }}
           >
